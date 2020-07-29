@@ -274,12 +274,14 @@ def main():
         plt.plot(s2x, s2y, "oy")
         plt.plot(g2x, g2y, "xb")
 
+    #Using the same planner to generate plan for the other robot.
     r2x, r2y = a_star.planning(s2x, s2y, g2x, g2y)
 
     if show_animation:  # pragma: no cover
         plt.plot(r2x, r2y, "-b")
         plt.pause(0.001)
 
+    #Both the robots start from their respective positions.
     curr_x = sx
     curr_y = sy
     curr2_x = s2x
@@ -287,17 +289,19 @@ def main():
     i=-1
     j=-1
     time = 0
-    print(len(rx),len(r2x))
+    
     while i > (-len(rx) + 1) or j > (-len(r2x)+1):
         print("Timestep:", time)
         print("Robot 1:", curr_x, curr_y)
         print("Robot 2:", curr2_x, curr2_y)
+        #Robot 2 is currently being given higher priority.
         if i > -len(rx)+1:
             if not (rx[i-1] == r2x[j-1] and ry[i-1] == r2y[j-1]):
                 curr_x = rx[i-1]
                 curr_y = ry[i-1]
                 i-=1
         if j > -len(r2x)+1:
+            #Robot 2 has higher priority so it does not have to check for availability of the next node.
             curr2_x = r2x[j-1]
             curr2_y = r2y[j-1]
             j-=1

@@ -3,6 +3,7 @@ import rospy
 import actionlib
 import math
 import random
+import time
 
 from std_msgs.msg import String
 from std_srvs.srv import Empty, Trigger
@@ -195,6 +196,8 @@ class ControllerRobots(object):
             rospy.loginfo("sending new goal %d/%d", self.cur_goal, self.num_goals)
             self.stopped = False
             self.goal_reached = False
+            if (("3" in self.hostname) or ("4" in self.hostname) or ("5" in self.hostname)):
+                time.sleep(5)
             self.client.send_goal(self.cur_goal_msg)
             self.cur_goal_pub.publish(self.cur_goal_msg.target_pose)
 
@@ -240,6 +243,8 @@ class ControllerRobots(object):
             rospy.loginfo("sending new goal %d/%d", self.cur_goal, self.num_goals)
             self.cur_goal_msg = self.return_cur_goal()
             self.stopped = False
+            if (("3" in self.hostname) or ("4" in self.hostname) or ("5" in self.hostname)):
+                time.sleep(5)
             self.client.send_goal(self.cur_goal_msg)
             self.cur_goal_pub.publish(self.cur_goal_msg.target_pose)
             rospy.loginfo("Send new Goal")
@@ -257,6 +262,8 @@ class ControllerRobots(object):
             rospy.loginfo("sending new goal %d/%d", self.cur_goal, self.num_goals)
             self.cur_goal_msg = self.return_cur_goal()
             self.stopped = False
+            if (("3" in self.hostname) or ("4" in self.hostname) or ("5" in self.hostname)):
+                time.sleep(5)
             self.client.send_goal(self.cur_goal_msg)
             self.cur_goal_pub.publish(self.cur_goal_msg.target_pose)
             rospy.loginfo("Send new Goal")
